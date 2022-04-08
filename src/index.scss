@@ -1,0 +1,203 @@
+$colorTable: #008000;
+$colorDealer: #603601;
+$colorBorder: #361500;
+
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.table {
+  background: $colorTable;
+  width:70%;
+}
+
+.dealer {
+  position: fixed;
+  top:0;
+  right:0;
+  background: $colorDealer;
+  border-left: 10px solid $colorBorder;
+  width:30%;
+  height: 100vh;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 50px;
+  justify-content: space-between;
+  height: 95vh;
+}
+
+.cardReverse {
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.hit {
+  border: 1px solid seagreen;
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  color: seagreen;
+  padding: 20px;
+  font-size: 50px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: seagreen;
+    color: white;
+    border: 1px solid  seagreen;
+  }
+}
+
+.stand {
+  border: 1px solid #ea1b1b;
+  border-radius: 5px;
+  background: rgb(255, 255, 255);
+  color: #ea1b1b;
+  padding: 20px;
+  font-size: 50px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ea1b1b;
+    color: white;
+    border: 1px solid  #ea1b1b;
+  }
+}
+
+.logo {
+  width: 100%;
+}
+
+.players {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding-top: 20px;
+}
+
+.player {
+  border: 3px solid #fad643;
+  border-radius: 15px;
+  width: 300px;
+  height: 450px;
+  margin: 20px;
+  padding: 15px;
+}
+
+.active {
+  box-shadow: 0 0 15px 5px #fad643;
+}
+
+.profile {
+  display: flex;
+  width: 100%;
+}
+
+.avatar {
+  width: 128px;
+  margin-right: 20px;
+}
+
+.name {
+  line-height: 70px;
+  font-size: 30px;
+  color: white;
+}
+
+.score {
+  text-align: center;
+  color: white;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  span {
+    font-size: 80px;
+  }
+}
+
+.cards {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+  height: 190px;
+}
+
+.card {
+  background: white;
+  border-radius: 5px;
+  width: 50px;
+  height: 80px;
+  margin: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2px;
+  font-size: 20px;
+
+  .top {
+    text-align: right;
+  }
+  .middle {
+    text-align: center;
+  }
+}
+
+.red {
+  color: red;
+}
+
+.black {
+  color: black;
+}
+
+.modal-back {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  top: 0;
+  left: 0;
+  z-index: 5;
+  height: 100%;
+  width: 100%;
+}
+
+.modal {
+  background: white;
+  border-radius: 15px;
+  width: 500px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -150px;
+  margin-left: -250px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  align-items: center;
+  justify-content: space-around;
+
+  button {
+    width: 250px;
+    font-size: 30px;
+  }
+  h1 {
+    font-size: 60px;
+    margin: 0;
+  }
+  h2 {
+    margin: 0;
+    font-size: 30px;
+    color: seagreen;
+  }
+}
