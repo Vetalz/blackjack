@@ -2,30 +2,29 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 
 import Game from './Game';
-import Player from './Player';
-import Card from './Card';
 import './index.scss';
 
 let game = new Game();
 
 let buttonHit = document.getElementById('hit');
+let buttonHit2 = document.getElementById('cardReverse');
 let buttonStand = document.getElementById('stand');
 
-buttonHit.addEventListener('click', () => addCard(game.currentPlayer))
-buttonStand.addEventListener('click', () => game.stopGame(game.currentPlayer))
+buttonHit.addEventListener('click', () => addCard(game.currentPlayer));
+buttonHit2.addEventListener('click', () => addCard(game.currentPlayer));
+buttonStand.addEventListener('click', () => playerStand(game.currentPlayer));
 startRender();
-console.log(game);
-
 
 function startRender() {
   let divPlayers = document.getElementById('players');
+  divPlayers.innerHTML = '';
   for (const player of game.players) {
     let elPlayer = document.createElement('div');
     let elCards = document.createElement('div');
 
     elPlayer.id = player.id;
     elPlayer.className = 'player';
-    if (player.id === 1) {
+    if (player.id === 0) {
       elPlayer.classList.add('active');
       game.currentPlayer = player;
     }
@@ -82,13 +81,14 @@ function renderSuit(suit) {
 
 function getColor(suit) {
   if (suit === 'diamond' || suit === 'heart') {
-    return 'red'
+    return 'red';
   }
   return 'black';
 }
 
 function addCard(player) {
   game.giveCard(player);
+  const elPlayer = document.getElementById(player.id);
   const elCards = document.querySelector(`[id='${player.id}'] > .cards`);
   const elScore = document.querySelector(`[id='${player.id}'] > .score > span`);
   const elCard = document.createElement('div');
@@ -106,4 +106,54 @@ function addCard(player) {
                         </div>`;
   elCards.appendChild(elCard);
   elScore.innerHTML = player.score;
+  if (player.isOver) {
+    elScore.classList.add('red');
+  }
+  elPlayer.classList.remove('active');
+  nextPlayer();
+}
+
+function playerStand(player) {
+  game.stopGame(player);
+  const elPlayer = document.getElementById(player.id);
+  elPlayer.classList.remove('active');
+  nextPlayer();
+}
+
+function nextPlayer() {
+  if (game.result === null) {
+    const elPlayer = document.getElementById(game.currentPlayer.id);
+    elPlayer.classList.add('active');
+  } else {
+    renderModalBlock();
+  }
+}
+
+function renderModalBlock() {
+  let body = document.getElementById('body');
+  let modal = document.createElement('div');
+  modal.classList.add('modal-back');
+  modal.id = 'modal';
+  modal.innerHTML = `<div class="modal">
+                        <h2>Result</h2>
+                        <h1>
+                            <span class="black">♠</span>
+                            <span class="red">♥</span>
+                            ${game.result}
+                            <span class="red">♦</span>
+                            <span class="black">♣</span>
+                        </h1>
+                        <button class="hit" id="again">Play again</button>
+                    </div>`
+  body.appendChild(modal);
+
+  let elButton = document.getElementById('modal');
+  elButton.addEventListener('click', removeModal);
+}
+
+function removeModal() {
+  let elModal = document.getElementById('modal');
+  elModal.remove();
+  game = new Game();
+  startRender();
 }

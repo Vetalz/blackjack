@@ -1,6 +1,8 @@
 class Player {
-  isActive = true;
+  isOver = false;
+  isStand = false;
   score = 0;
+
   constructor(id, name, cards) {
     this.id = id;
     this.name = name;
@@ -14,7 +16,7 @@ class Player {
     }
     this.score = count;
     if (this.score > 21) {
-      this.isActive = false;
+      this.isOver = true;
     }
   }
 }
